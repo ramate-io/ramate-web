@@ -1,6 +1,8 @@
 import React, {FC, ReactElement} from 'react';
 import { TextField } from "@mui/material";
 import { Button } from '../../components/input/Button/Button';
+import { Ramate } from '../../components/icons/ramate/Ramate/Ramate';
+import { TaggedTopic, TaggedTopicProps } from '../../assemblies/tagged/TaggedTopic/TaggedTopic';
 
 export const HOME_CLASSNAMES : string[] = [ ];
 export const HOME_STYLE : React.CSSProperties = {
@@ -10,7 +12,7 @@ export const HOME_STYLE : React.CSSProperties = {
     alignItems : "center",
     alignContent : "center",
     justifyContent : "center",
-    justifyItems : "center"
+    justifyItems : "center",
 };
 
 export type HomeProps = {
@@ -23,6 +25,9 @@ export type HomeProps = {
     onPromptChange ? : (prompt : string)=>Promise<void>;
     onLaunch ? : ()=>Promise<void>;
     disabled ? : boolean;
+    engineeringTags ? : TaggedTopicProps["tags"];
+    consultingTags ? : TaggedTopicProps["tags"];
+    researchTags ? : TaggedTopicProps["tags"];
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -38,33 +43,55 @@ export const Home : FC<HomeProps>  = (props) =>{
         style={{...!props.overrideStyle ? HOME_STYLE : {}, ...props.style}}>
             <div style={{
                 display : "grid",
-                height : "200px",
-                gridTemplateRows : "1fr 1fr"
-            }}>
-                <div>
-                    <h2>Branch and Summarize</h2>
+                gridTemplateColumns : "1fr 2fr",
+                justifyContent : "center",
+                justifyItems : "center",
+                alignContent : "center",
+                alignItems : "center"
+            }}> 
+                <div style={{
+                    borderRight : "1px solid",
+                    justifySelf : "right",
+                    padding : 20,
+                    textAlign : "center",
+                    lineHeight : ".5em"
+                }}>
+                    <Ramate/>
+                    <h2>
+                        ramate
+                    </h2>
+                    <p>
+                        <span style={{
+                            opacity : .7,
+                        }}>Liam Monninger</span>
+                    </p>
                 </div>
                 <div style={{
-                    display : "grid",
-                    gridTemplateColumns : "1fr"
+                    padding : 50,
+                    lineHeight : "1em",
+                    justifySelf : "left"
                 }}>
-                    <div>
-                        <TextField
-                        disabled={props.disabled} 
-                        style={{
-                            width : "400px"
-                        }} onChange={_handlePromptChange} id="standard-basic" label="Provide prompt..." variant="standard" />
-                    </div>
-                    <div style={{
-                        display : "grid",
-                        justifyContent : "end"
-                    }}>
-                        <Button 
-                        disabled={props.disabled}
-                        variant='contained' color='success' aonClick={props.onLaunch}>
-                            Launch
-                        </Button>
-                    </div>
+                    <TaggedTopic
+                        maxRows={1}
+                        title='Software engineering'
+                        description='Starting from $60/hr'
+                        tags={{}}
+                        />
+                    <br/>
+                    <TaggedTopic
+                        expanded
+                        maxRows={1}
+                        title='Software consulting and system design'
+                        description='Starting from $45/hr'
+                        tags={{}}
+                    />
+                    <br/>
+                    <TaggedTopic
+                        maxRows={1}
+                        title='Research, data science, GIS, and content'
+                        description='Starting from $35/hr'
+                        tags={{}}
+                    />
                 </div>
             </div>
         </div>

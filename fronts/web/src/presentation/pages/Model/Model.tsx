@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { BasData } from '../../assemblies/data/BasData/BasData';
 import { ConfigurationSection } from '../../assemblies/configuration/ConfigurationSection';
 import { BasSection } from '../../assemblies/data/BasSection/BasSection';
+import { Ramate } from '../../components/icons/ramate/Ramate/Ramate';
 
 export const MODEL_CLASSNAMES : string[] = [ ];
 export const MODEL_STYLE : React.CSSProperties = {
@@ -45,43 +46,7 @@ export const Model : FC<ModelProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? MODEL_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? MODEL_STYLE : {}, ...props.style}}>
-            <div style={{
-                display : "grid",
-                width : "60%",
-                gridTemplateColumns : "1fr",
-                margin : "0 auto"
-            }}>
-                <h2>Branch and Summarize</h2>
-                <Accordion style={{
-                    width : "100%",
-                    background : "#f9f9f9"
-                }}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
-                        <h3>Configuration</h3>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <ConfigurationSection 
-                        sidecarLines={props.sidecarLines} 
-                        onApply={props.onApply}
-                        onDestroy={props.onDestroy}/>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion style={{
-                    width : "100%",
-                    background : "#f9f9f9"
-                }} >
-                    <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
-                        <h3>Dialogue</h3>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <BasSection 
-                            summary={props.summary}
-                            branches={props.branches}
-                            onPromptChange={props.onPromptChange}
-                            onPrompt={props.onPrompt}/>
-                    </AccordionDetails>
-                </Accordion>
-            </div>
+            <Ramate/>
         </div>
     )
 };
