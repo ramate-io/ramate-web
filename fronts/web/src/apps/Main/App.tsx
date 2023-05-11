@@ -4,7 +4,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import { Model } from "./Model";
+
 
 function App() {
 
@@ -13,7 +13,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Home/>}/> 
-          <Route path={"/model/:id"} element={<Model/>}/>
         </Routes>
       </BrowserRouter>
     </div>

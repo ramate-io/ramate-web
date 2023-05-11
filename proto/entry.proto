@@ -1,0 +1,92 @@
+syntax = "proto3";
+package entry;
+
+// Other structures may augment a user.
+// But, this is always what should be transmitted as a user.
+message User {
+    string id = 1;
+}
+
+// Other structures may augment a cursor.
+// But, this is always what should be transmitted as a cursor.
+message Cursor {
+    string id = 1;
+    int64 pos = 2;
+}
+
+// Other strucutres may augment a token.
+// But, this is always what should be transmitted with a token.
+message Token {
+    string id = 1;
+}
+
+message GetRequest {
+    string user_id = 1;
+    string token_id = 2;
+}
+
+message PageRequest {
+    string user_id = 1;
+    string token_id = 2;
+    string cursor_id = 3;
+}
+
+message SkillTag {
+    string name = 1;
+    string displayName = 2;
+}
+
+enum ContactMedium {
+    SMS = 0;
+    EMAIL = 1;
+}
+
+message Contact {
+    ContactMedium medium = 1;
+    string value = 2;
+}
+
+message Inquiry {
+    repeated Contact contacts = 1;
+    repeated SkillTag skills = 2;
+    string message = 3;
+}
+
+message InquiryConfirmation {
+    string id = 1;
+}
+
+service Correspondence {
+
+    rpc Inquire(Inquiry) returns (InquiryConfirmation){}
+
+}
+
+enum ProjectStatus {
+    INQUIRY = 0;
+    NEGOTIATING = 1;
+    BROKE_DOWN = 2;
+    PLANNED = 3;
+    IN_PROGRESS = 4;
+    COMPLETED = 5;
+}
+
+message ProjectMilestone {
+    string id = 1;
+    string project_id = 2;
+    ProjectStatus status = 3;
+}
+
+message Project {
+    string id = 1;
+    string description = 2;
+    repeated ProjectStatus milestones = 3;
+}
+
+service ProjectChannel {
+
+    rpc GetProject(GetRequest) returns (Project){};
+
+    rpc GetProjects(PageRequest) returns (stream Project){};
+
+}

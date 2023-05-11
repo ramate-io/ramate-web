@@ -57,7 +57,9 @@ export const TaggedTopic : FC<TaggedTopicProps>  = (props) =>{
             const ref = tagRefs.current[i]; 
 
             return <div key={key} ref={ref}>
-                <Chip clickable key={key} label={display} variant={selected ? "filled" : "outlined"}/>
+                <Chip sx={{
+                    color : "inherit"
+                }} clickable key={key} label={display} variant={selected ? "filled" : "outlined"}/>
             </div>
 
         })
@@ -89,14 +91,14 @@ export const TaggedTopic : FC<TaggedTopicProps>  = (props) =>{
         Object.keys(rows)[_maxRows] as unknown as number
         : tagRefs.current.length;
         //  const endRow = Object.keys()
-        console.log(rows, endKey, size <= _maxRows, limit, endKey, limit < (endKey - 1))
+   
         if(endKey && size > _maxRows){
             setLimit(rows[endKey][0]);
         }
 
         if (
             (size <= _maxRows) 
-            && (limit < (endKey - 1))
+            && (limit < (endKey))
         ){
             increment();
             setLimit(limit + 1);
@@ -145,15 +147,18 @@ export const TaggedTopic : FC<TaggedTopicProps>  = (props) =>{
                     !_expanded
                     && (limit !== tagRefs.current.length)
                 ) && <Chip 
+                    sx={{color : "inherit"}}
                     onClick={handleEllipses} 
                     clickable key={"elip"} label={"..."} variant={"outlined"}
                 />}
                 {_expanded && <InputChip 
+                    sx={{color : "inherit"}}
                     clickable key={"suggest"} label={"Your need"} variant={"outlined"}/>}
                 {(
                     _expanded
                     && (limit !== tagRefs.current.length)
                 ) && <Chip 
+                    sx={{color : "inherit"}}
                     onClick={handleTrim} 
                     clickable key={"trim"} label={"-/---"} variant={"outlined"}
                 />}

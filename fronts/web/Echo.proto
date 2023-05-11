@@ -1,0 +1,12 @@
+syntax = "proto3";
+package echo;
+
+message EchoCom {
+    string text = 1;
+}
+
+service Echoer {
+
+    rpc call(EchoCom) returns (EchoCom){}
+
+}
