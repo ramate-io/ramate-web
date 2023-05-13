@@ -1,2 +1,2 @@
 pub mod redis_collection;
-pub mod collection_test;
+pub mod redis_collection_test;
