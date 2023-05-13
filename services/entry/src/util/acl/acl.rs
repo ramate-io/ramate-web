@@ -3,15 +3,15 @@ use tokio::sync::mpsc::{Receiver};
 use anyhow::{Error};
 
 #[async_trait]
-pub trait Acls : Send + Sync {
+pub trait Acls {
 
-    async fn add<'a>(
-        &self, key: &str, 
-        mut ids: Receiver<&'a str>
-    ) -> Result<&Self, Error>;
+    async fn add(
+        resource_id: &str, 
+        mut ids: Receiver<String>
+    ) -> Result<bool, Error>;
 
     async fn contains(
-        &self, key : &str, 
+        resource_id : &str, 
         id : &str
     ) -> Result<bool, Error>;
 
@@ -19,13 +19,12 @@ pub trait Acls : Send + Sync {
     // an alternative would be take the ids here as sets and intersect them in the redis space
     // however, this doesn't end up being all that useful because one way or another we wil have to compute the 
     // the complete iterator of ids using recursion in program space
-    async fn intersects<'a>(
-        &self,
-        key: &str,
-        mut ids: Receiver<&'a str>,
+    async fn intersects(
+        resource_id: &str,
+        mut ids: Receiver<String>,
     ) -> Result<bool, Error>;
 
-    async fn empty(&self, key : &str) 
-    -> Result<&Self,  Error>;
+    async fn empty(resource_id : &str) 
+    -> Result<bool,  Error>;
 
 }

@@ -15,69 +15,84 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use tokio::sync::mpsc::{Receiver};
 use anyhow::{Error};
 
-pub struct RedisAcls {}
+pub trait RedisAcls {}
 
-impl RedisAcls {
+pub struct RedisAclsManager {}
 
-}
+impl RedisAcls for RedisAclsManager {}
 
-#[async_trait]
-impl Acls for RedisAcls {
 
-    async fn add<'a>(
-        &self, 
-        key: &str, 
-        mut ids: Receiver<&'a str>
-    ) -> Result<&Self, Error>{
-        let mut connection = REDIS.get_connection().await?;
-        let mut pipeline = redis::pipe();
+impl <T> Acls for T
+    where
+        T  : RedisAcls
+{
 
-        while let Some(id) = ids.recv().await {
-            pipeline.sadd(&key, id);
-        }
+    fn add<'life0,'async_trait>(resource_id: &'life0 str, mut ids:Receiver<String>) ->  core::pin::Pin<Box<dyn core::future::Future<Output = Result<bool,Error> > + core::marker::Send+'async_trait> >where 'life0:'async_trait {
+        Box::pin(async move{
 
-        let _: Vec<bool> = pipeline.query_async(connection.borrow_mut()).await?;
-        Ok(self)
+            let mut connection = REDIS.get_connection().await?;
+            let mut pipeline = redis::pipe();
+    
+            while let Some(id) = ids.recv().await {
+                pipeline.sadd(&resource_id, id);
+            }
+    
+            let _: Vec<bool> = pipeline.query_async(connection.borrow_mut()).await?;
+            Ok(true)
+
+        })
+    }
+    
+
+    fn contains<'life0,'life1,'async_trait>(resource_id: &'life0 str,id: &'life1 str) ->  core::pin::Pin<Box<dyn core::future::Future<Output = Result<bool,Error> > + core::marker::Send+'async_trait> >where 'life0:'async_trait,'life1:'async_trait {
+        
+        Box::pin(async move {
+
+            let mut connection = REDIS.get_connection().await?;
+            let contains: bool = redis::cmd("SISMEMBER")
+                .arg(&resource_id)
+                .arg(&id)
+                .query_async(connection.borrow_mut())
+                .await?;
+            Ok(contains)
+
+        })
+
     }
 
-    async fn contains(&self, key: &str, id: &str) -> Result<bool, Error> {
-        let mut connection = REDIS.get_connection().await?;
-        let contains: bool = redis::cmd("SISMEMBER")
-            .arg(&key)
-            .arg(&id)
-            .query_async(connection.borrow_mut())
-            .await?;
-        Ok(contains)
+    fn intersects<'life0,'async_trait>(resource_id: &'life0 str, mut ids:Receiver<String> ,) ->  core::pin::Pin<Box<dyn core::future::Future<Output = Result<bool,Error> > + core::marker::Send+'async_trait> >where 'life0:'async_trait {
+        Box::pin(async move {
+
+            let mut connection = REDIS.get_connection().await?;
+            let mut pipeline = redis::pipe();
+        
+            let tresource_id = format!("temp_set_{}", SystemTime::now().duration_since(UNIX_EPOCH)?.as_nanos());
+            let temp_resource_id = Arc::new(tresource_id.as_str());
+        
+            // Read IDs from the receiver and add them to the pipeline
+            while let Some(id) = ids.recv().await {
+                pipeline.sadd(&*temp_resource_id, id).ignore();
+            }
+        
+            pipeline.cmd("SINTERCARD").arg(2).arg(&resource_id).arg(&*temp_resource_id);
+            pipeline.del(&*temp_resource_id).ignore();
+        
+            let (result,): (u8,) = pipeline.query_async(connection.borrow_mut()).await?;
+            let intersects = result > 0;
+        
+            Ok(intersects)
+
+        })
     }
 
-    async fn intersects<'a>(
-        &self,
-        key: &str,
-        mut ids: Receiver<&'a str>,
-    ) -> Result<bool, Error> {
-        let mut connection = REDIS.get_connection().await?;
-        let mut pipeline = redis::pipe();
-    
-        let tkey = format!("temp_set_{}", SystemTime::now().duration_since(UNIX_EPOCH)?.as_nanos());
-        let temp_key = Arc::new(tkey.as_str());
-    
-        // Read IDs from the receiver and add them to the pipeline
-        while let Some(id) = ids.recv().await {
-            pipeline.sadd(&*temp_key, id).ignore();
-        }
-    
-        pipeline.cmd("SINTERCARD").arg(2).arg(&key).arg(&*temp_key);
-        pipeline.del(&*temp_key).ignore();
-    
-        let (result,): (u8,) = pipeline.query_async(connection.borrow_mut()).await?;
-        let intersects = result > 0;
-    
-        Ok(intersects)
-    }    
+    fn empty<'life0,'async_trait>(resource_id: &'life0 str) ->  core::pin::Pin<Box<dyn core::future::Future<Output = Result<bool,Error> > + core::marker::Send+'async_trait> >where 'life0:'async_trait {
+        Box::pin(async move {
 
-    async fn empty(&self, key: &str) -> Result<&Self, Error> {
-        let mut connection = REDIS.get_connection().await?;
-        redis::cmd("DEL").arg(&key).query_async(connection.borrow_mut()).await?;
-        Ok(self)
+            let mut connection = REDIS.get_connection().await?;
+            redis::cmd("DEL").arg(&resource_id).query_async(connection.borrow_mut()).await?;
+            Ok(true)
+
+        })
     }
+
 }

@@ -38,6 +38,11 @@ pub trait AsyncIndex : Send + Sync {
         resource_id : &str
     )->Result<bool, Error>;
 
+    async fn get_resource_ids(
+        &self,
+        partition_ids : &str
+    )->Result<Receiver<Result<String, Error>>, Error>;
+
 }
 
 #[async_trait]
