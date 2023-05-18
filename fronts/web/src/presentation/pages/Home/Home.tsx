@@ -28,7 +28,12 @@ export type HomeProps = {
     disabled ? : boolean;
     sections ? : {
         [key : string] : TaggedTopicProps;
-    }
+    };
+    sectionExpanded ? : {
+        [key : string] : boolean
+    };
+    onEllipses ? : (section : string)=>Promise<void>;
+    onTrim ? : (section : string)=>Promise<void>;
 };
 
 export const Home : FC<HomeProps>  = (props) =>{
@@ -37,7 +42,17 @@ export const Home : FC<HomeProps>  = (props) =>{
 
     const Sections = Object.entries(_sections).map(([key, value])=>{
 
-        return <TaggedTopic key={key} {...value}/>
+        const handleEllipses = async ()=>{
+            if(props.onEllipses) await props.onEllipses(key)
+        }
+
+        const handleTrim = async ()=>{
+            if(props.onTrim) await props.onTrim(key);
+        }
+
+        return <TaggedTopic expanded={props.sectionExpanded?.[key]} 
+            onTrim={handleTrim}
+            onEllipses={handleEllipses} key={key} {...value}/>
 
     })
 

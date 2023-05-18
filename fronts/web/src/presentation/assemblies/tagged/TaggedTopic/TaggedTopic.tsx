@@ -86,20 +86,26 @@ export const TaggedTopic : FC<TaggedTopicProps>  = (props) =>{
 
         }
 
+        // determine the current size
         const size = Object.keys(rows).length;
-        const endKey : number = Object.keys(rows)[_maxRows] !== undefined ? 
-        Object.keys(rows)[_maxRows] as unknown as number
-        : tagRefs.current.length;
-        //  const endRow = Object.keys()
-   
-        if(endKey && size > _maxRows){
-            setLimit(rows[endKey][0]);
-        }
 
+        // get the key of the last + 1 (first exlcuded) row
+        const lastKey = 
+        Object.values(rows)[_maxRows] as unknown as number[]|undefined;
+
+        // get the index for the end of the elements container
+        const endex : number = 
+        lastKey?.[0] ? lastKey[0] - 1 : tagRefs.current.length;
+   
+        // if we have an endex and we're too big
+        if(endex && size > _maxRows) 
+            setLimit(endex); // downsize
+
+        // if we're too small
         if (
             (size <= _maxRows) 
-            && (limit < (endKey))
-        ){
+            && (limit < (endex))
+        ){ // upsize
             increment();
             setLimit(limit + 1);
         }

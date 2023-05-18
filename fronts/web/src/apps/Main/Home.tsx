@@ -43,10 +43,28 @@ export const Home : FC<HomeProps>  = (props) =>{
         engineering : false,
         consulting : false,
         research : false
-    })
+    });
+
+    const handleEllipses = async (section : string)=>{
+        setTagsExpanded({
+            ...tagsExpanded,
+            [section] : true
+        })
+    };
+
+    const handleTrim = async (section : string)=>{
+        setTagsExpanded({
+            ...tagsExpanded,
+            [section] : false
+        })
+    }
 
     return (
-        <HomePage sections={{
+        <HomePage 
+        onTrim={handleTrim}
+        onEllipses={handleEllipses}
+        sectionExpanded={tagsExpanded}
+        sections={{
             "engineering" : {
                 title : "Software engineering",
                 description : "Software engineering starting from $60",
