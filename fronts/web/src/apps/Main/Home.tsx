@@ -1,6 +1,5 @@
 import React, {FC, ReactElement, useEffect, useState} from 'react';
 import { Home as HomePage, HomeProps as HomePageProps } from '../../presentation/pages';
-import { startModel } from '../../data/deployer/startModel';
 import { useNavigate } from 'react-router-dom';
 import { EchoerClient, } from "rpc/EchoServiceClientPb";
 import * as Echo from 'rpc/Echo_pb';
