@@ -1,0 +1,1 @@
+export const THEME = "#213547";

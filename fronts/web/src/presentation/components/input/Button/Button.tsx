@@ -32,7 +32,7 @@ export const Button : FC<ButtonProps>  = (props) =>{
 
     useEffect(()=>{
 
-        let timeout : number | undefined = undefined;
+        let timeout : NodeJS.Timeout | undefined = undefined;
 
         if (status === 2)
             timeout = setTimeout(()=>setStatus(0), 200);

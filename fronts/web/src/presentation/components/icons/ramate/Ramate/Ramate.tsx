@@ -12,17 +12,17 @@ export type RamateProps = {
     overrideClasses ? : boolean;
     responsive ? : boolean;
     fill ? : string;
-    size ? : number;
+    size ? : number | string;
 };
 
 export const Ramate : FC<RamateProps>  = (props) =>{
 
     const _size = props.size??24;
-    const _width = _size * (340/234);
-    const _height = _size;
+    // const _width = _size * (340/234);
+    // const _height = _size;
 
     return (
-        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width={_size} height={_size}
             viewBox="0 0 340.000000 234.000000" preserveAspectRatio="xMidYMid meet">
 
             <g transform="translate(0.000000,234.000000) scale(0.100000,-0.100000)" fill={props.fill||"#0000000"} stroke="none">

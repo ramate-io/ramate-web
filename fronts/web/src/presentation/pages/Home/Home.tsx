@@ -4,6 +4,9 @@ import { Button } from '../../components/input/Button/Button';
 import { Ramate } from '../../components/icons/ramate/Ramate/Ramate';
 import { TaggedTopic, TaggedTopicProps } from '../../assemblies/tagged/TaggedTopic/TaggedTopic';
 import { ExpandableSectionDisplay, TitleSubtitleDisplay } from '../../../util';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { HomeDesktop } from './HomeDesktop';
+import { HomeMobile } from './HomeMobile';
 
 export const HOME_CLASSNAMES : string[] = [ ];
 export const HOME_STYLE : React.CSSProperties = {
@@ -38,66 +41,9 @@ export type HomeProps = {
 
 export const Home : FC<HomeProps>  = (props) =>{
 
-    const _sections = props.sections??{};
-
-    const Sections = Object.entries(_sections).map(([key, value])=>{
-
-        const handleEllipses = async ()=>{
-            if(props.onEllipses) await props.onEllipses(key)
-        }
-
-        const handleTrim = async ()=>{
-            if(props.onTrim) await props.onTrim(key);
-        }
-
-        return <TaggedTopic expanded={props.sectionExpanded?.[key]} 
-            onTrim={handleTrim}
-            onEllipses={handleEllipses} key={key} {...value}/>
-
-    })
-
-    const _handlePromptChange = (event : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>{
-        if(props.onPromptChange)
-            props.onPromptChange(event.target.value)
-    }
+    const matches = useMediaQuery('(min-width:600px)');
 
     return (
-        <div
-        className={[...!props.overrideClasses ? HOME_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
-        style={{...!props.overrideStyle ? HOME_STYLE : {}, ...props.style}}>
-            <div style={{
-                display : "grid",
-                gridTemplateColumns : "1fr 2fr",
-                justifyContent : "center",
-                justifyItems : "center",
-                alignContent : "center",
-                alignItems : "center"
-            }}> 
-                <div style={{
-                    borderRight : "1px solid",
-                    justifySelf : "right",
-                    padding : 20,
-                    textAlign : "center",
-                    lineHeight : ".5em"
-                }}>
-                    <Ramate/>
-                    <h2>
-                        ramate
-                    </h2>
-                    <p>
-                        <span style={{
-                            opacity : .7,
-                        }}>Liam Monninger</span>
-                    </p>
-                </div>
-                <div style={{
-                    padding : 50,
-                    lineHeight : "1em",
-                    justifySelf : "left"
-                }}>
-                   {Sections}
-                </div>
-            </div>
-        </div>
+       matches ? <HomeDesktop {...props}/> : <HomeMobile {...props}/>
     )
 };
