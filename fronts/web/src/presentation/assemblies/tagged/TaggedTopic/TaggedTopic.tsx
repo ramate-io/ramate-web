@@ -139,9 +139,12 @@ export const TaggedTopic : FC<TaggedTopicProps>  = (props) =>{
         <div
         className={[...!props.overrideClasses ? TAGGED_TOPIC_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
         style={{...!props.overrideStyle ? TAGGED_TOPIC_STYLE : {}, ...props.style}}>
-            <h2>{props.title}</h2>
+            <h2 style={{
+                margin : 4
+            }}>{props.title}</h2>
             <p style={{
-                fontSize : "1em"
+                fontSize : "1em",
+                margin : 4
             }}><i>{props.description}</i></p>
             <div style={{
                 display : "flex",

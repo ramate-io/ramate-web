@@ -101,7 +101,7 @@ export const ENGAGEMENTS : {
             }
         },
         "consulting" : {
-            title : "Software engineering",
+            title : "Consulting",
             description : "Consutling starting from $45/hr",
             tags : {
                 "docs" : {
@@ -230,6 +230,11 @@ export const ENGAGEMENTS : {
                     color : "black",
                     selected : false
                 },
+                "osint" : {
+                    displayText : "OSINT",
+                    color : "black",
+                    selected : false
+                }
             }
         }    
 }

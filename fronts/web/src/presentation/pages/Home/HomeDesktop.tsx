@@ -108,8 +108,10 @@ export const HomeDesktop : FC<HomeDesktopProps>  = (props) =>{
                 </div>
                 <div style={{
                     padding : 50,
-                    lineHeight : "1em",
-                    justifySelf : "left"
+                    // lineHeight : "1em",
+                    justifySelf : "left",
+                    display : "grid",
+                    gap : 15
                 }}>
                    {Sections}
                 </div>

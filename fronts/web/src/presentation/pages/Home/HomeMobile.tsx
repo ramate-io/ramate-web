@@ -105,7 +105,6 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                 </div>
                 <div style={{
                     padding : 50,
-                    lineHeight : "1em",
                     justifySelf : "left",
                     display : "grid",
                     gap : 30
