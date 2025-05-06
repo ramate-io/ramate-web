@@ -79,6 +79,29 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                             backgroundColor: '#1a2937',
                             },
                         }}>Inquire</Button>
+                    <div style={{
+                        display: 'flex',
+                        gap: '20px',
+                        marginTop: '20px',
+                        justifyContent: 'center'
+                    }}>
+                        <a 
+                            href="https://github.com/ramate-io" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{ color: 'inherit' }}
+                        >
+                            <GitHubIcon sx={{ fontSize: 32 }} />
+                        </a>
+                        <a 
+                            href="https://medium.com/ramate" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{ color: 'inherit' }}
+                        >
+                            <ArticleIcon sx={{ fontSize: 32 }} />
+                        </a>
+                    </div>
                 </div>
                 <div style={{
                     padding : 50,
@@ -94,32 +117,6 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                         margin : 4
                     }}><i>Ramate began as Liam Monninger's single-member LLC for software engineering contracts. It is currently evolving into a collective for esoteric computing projects. We're working on standing up a new flagship project. Check back soon!</i></p>
                 </div>
-            </div>
-            <div style={{
-                position: 'absolute',
-                bottom: '20px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                cursor: 'pointer',
-                display: 'flex',
-                gap: '20px'
-            }}>
-                <a 
-                    href="https://github.com/ramate-io" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ color: 'inherit' }}
-                >
-                    <GitHubIcon sx={{ fontSize: 32 }} />
-                </a>
-                <a 
-                    href="https://medium.com/ramate" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ color: 'inherit' }}
-                >
-                    <ArticleIcon sx={{ fontSize: 32 }} />
-                </a>
             </div>
         </div>
     )
