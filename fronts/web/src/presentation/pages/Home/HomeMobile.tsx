@@ -37,31 +37,6 @@ export type HomeMobileProps = {
 
 export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
 
-    const _sections = props.sections??{};
-
-    const Sections = Object.entries(_sections).map(([key, value])=>{
-
-        const handleEllipses = async ()=>{
-            if(props.onEllipses) await props.onEllipses(key)
-        }
-
-        const handleTrim = async ()=>{
-            if(props.onTrim) await props.onTrim(key);
-        }
-
-        return <TaggedTopic expanded={props.sectionExpanded?.[key]} 
-            onTrim={handleTrim}
-            onEllipses={handleEllipses} key={key} {...value}/>
-
-    })
-
-    const _handlePromptChange = (event : React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>)=>{
-        if(props.onPromptChange)
-            props.onPromptChange(event.target.value)
-    }
-
-    const matches = useMediaQuery('(min-width:600px)');
-
     return (
         <div
         className={[...!props.overrideClasses ? HOME_MOBILE_CLASSNAMES : [], ...props.classNames||[]].join(" ")}
@@ -109,7 +84,13 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                     display : "grid",
                     gap : 30
                 }}>
-                   {Sections}
+                   <h2 style={{
+                        margin : 4
+                    }}>About</h2>
+                    <p style={{
+                        fontSize : "1em",
+                        margin : 4
+                    }}><i>Ramate began as Liam Monninger's single-member LLC for software engineering contracts. It is currently evolving into a collective for esoteric computing projects. We're working on standing up a new flagship project. Check back soon!</i></p>
                 </div>
             </div>
         </div>
