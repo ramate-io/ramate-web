@@ -6,6 +6,7 @@ import { TaggedTopic, TaggedTopicProps } from '../../assemblies/tagged/TaggedTop
 import { ExpandableSectionDisplay, TitleSubtitleDisplay } from '../../../util';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import ArticleIcon from '@mui/icons-material/Article';
 
 export const HOME_MOBILE_CLASSNAMES : string[] = [ ];
 export const HOME_MOBILE_STYLE : React.CSSProperties = {
@@ -99,7 +100,9 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                 bottom: '20px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'flex',
+                gap: '20px'
             }}>
                 <a 
                     href="https://github.com/ramate-io" 
@@ -108,6 +111,14 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                     style={{ color: 'inherit' }}
                 >
                     <GitHubIcon sx={{ fontSize: 32 }} />
+                </a>
+                <a 
+                    href="https://medium.com/ramate" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: 'inherit' }}
+                >
+                    <ArticleIcon sx={{ fontSize: 32 }} />
                 </a>
             </div>
         </div>
