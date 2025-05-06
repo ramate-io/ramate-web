@@ -5,6 +5,7 @@ import { Ramate } from '../../components/icons/ramate/Ramate/Ramate';
 import { TaggedTopic, TaggedTopicProps } from '../../assemblies/tagged/TaggedTopic/TaggedTopic';
 import { ExpandableSectionDisplay, TitleSubtitleDisplay } from '../../../util';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 export const HOME_MOBILE_CLASSNAMES : string[] = [ ];
 export const HOME_MOBILE_STYLE : React.CSSProperties = {
@@ -92,6 +93,22 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                         margin : 4
                     }}><i>Ramate began as Liam Monninger's single-member LLC for software engineering contracts. It is currently evolving into a collective for esoteric computing projects. We're working on standing up a new flagship project. Check back soon!</i></p>
                 </div>
+            </div>
+            <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                cursor: 'pointer'
+            }}>
+                <a 
+                    href="https://github.com/ramate-io" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: 'inherit' }}
+                >
+                    <GitHubIcon sx={{ fontSize: 32 }} />
+                </a>
             </div>
         </div>
     )
