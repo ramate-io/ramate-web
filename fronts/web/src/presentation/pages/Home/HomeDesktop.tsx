@@ -89,7 +89,13 @@ export const HomeDesktop : FC<HomeDesktopProps>  = (props) =>{
                             rel="noopener noreferrer"
                             style={{ color: 'inherit' }}
                         >
-                            <GitHubIcon sx={{ fontSize: 32 }} />
+                            <GitHubIcon sx={{ 
+                                fontSize: 32,
+                                transition: 'all 0.2s ease-in-out',
+                                '&:hover': {
+                                    filter: 'drop-shadow(0 0 0.5em rgba(0, 0, 0, 0.3))'
+                                }
+                            }} />
                         </a>
                         <a 
                             href="https://medium.com/ramate" 
@@ -97,7 +103,13 @@ export const HomeDesktop : FC<HomeDesktopProps>  = (props) =>{
                             rel="noopener noreferrer"
                             style={{ color: 'inherit' }}
                         >
-                            <ArticleIcon sx={{ fontSize: 32 }} />
+                            <ArticleIcon sx={{ 
+                                fontSize: 32,
+                                transition: 'all 0.2s ease-in-out',
+                                '&:hover': {
+                                    filter: 'drop-shadow(0 0 0.5em rgba(0, 0, 0, 0.3))'
+                                }
+                            }} />
                         </a>
                     </div>
                 </div>
