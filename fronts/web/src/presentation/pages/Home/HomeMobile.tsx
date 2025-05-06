@@ -61,15 +61,10 @@ export const HomeMobile : FC<HomeMobileProps>  = (props) =>{
                     <h2>
                         ramate
                     </h2>
-                    <p>
-                        <span style={{
-                            opacity : .7,
-                        }}>Liam Monninger</span>
-                    </p>
                     <Button 
                         aonClick={async ()=>{
                             const win : Window = window;
-                            win.location = "mailto:l.mak.monninger@gmail.com"
+                            win.location = "mailto:liam@ramate.io"
                         }}
                         variant='contained'
                         sx={{
