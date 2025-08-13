@@ -149,6 +149,7 @@ export const HomeDesktop : FC<HomeDesktopProps>  = (props) =>{
                         <div style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(2, 1fr)',
+                            gridAutoRows: '1fr',
                             gap: '30px'
                         }}>
                             <RepoCard
