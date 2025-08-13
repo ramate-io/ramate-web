@@ -23,7 +23,9 @@
 
         # An LLVM build environment
         dependencies = with pkgs; [
-          protoc
+          protobuf
+          grpcurl
+          grpcui
           nodejs
           ltex-ls-plus
           lychee
@@ -154,11 +156,11 @@
               cp $(pwd)/.githooks/pre-commit $(pwd)/.git/hooks/pre-commit
               chmod +x $(pwd)/.git/hooks/pre-commit
 
-              chafa --size 30x30 --animate false --colors 8 --center true ./assets/oac-transparent.png
+              chafa --size 30x30 --animate false --colors 8 --center true ./assets/ramate-transparent.png
 
               echo ""
-              echo "Ordered Atomic Collaboration (OAC)"
-              echo "OAC is a paradigm for decentralized consequence."
+              echo "Ramate Web"
+              echo "Ramate's company website."
             '';
           };
         };
