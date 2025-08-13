@@ -26,6 +26,7 @@
           protobuf
           grpcurl
           grpcui
+          yarn
           nodejs
           ltex-ls-plus
           lychee
