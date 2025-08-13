@@ -1,3 +1,4 @@
-# ramate
-Ramate company website monorepo.
+# Ramate Web
+
+The Ramate company website.
 
