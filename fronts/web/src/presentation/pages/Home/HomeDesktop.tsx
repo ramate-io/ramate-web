@@ -2,11 +2,18 @@ import React, {FC, ReactElement} from 'react';
 import { TextField } from "@mui/material";
 import { Button } from '../../components/input/Button/Button';
 import { Ramate } from '../../components/icons/ramate/Ramate/Ramate';
+import { RepoCard } from '../../components/cards/RepoCard/RepoCard';
 import { TaggedTopic, TaggedTopicProps } from '../../assemblies/tagged/TaggedTopic/TaggedTopic';
 import { ExpandableSectionDisplay, TitleSubtitleDisplay } from '../../../util';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ArticleIcon from '@mui/icons-material/Article';
+import ramateIconLight from '../../../assets/ramate-transparent.png';
+import ramateIconDark from '../../../assets/ramate-inverted-transparent.png';
+import oacIconLight from '../../../assets/oac-transparent.png';
+import oacIconDark from '../../../assets/oac-inverted-transparent.png';
+import roblesIconLight from '../../../assets/robles-transparent.png';
+import roblesIconDark from '../../../assets/robles-inverted-transparent.png';
 
 export const HOME_DESKTOP_CLASSNAMES : string[] = [ ];
 export const HOME_DESKTOP_STYLE : React.CSSProperties = {
@@ -40,6 +47,11 @@ export type HomeDesktopProps = {
 };
 
 export const HomeDesktop : FC<HomeDesktopProps>  = (props) =>{
+
+    const isDark = useMediaQuery('(prefers-color-scheme: dark)');
+    const ramateIconSrc = isDark ? ramateIconDark : ramateIconLight;
+    const oacIconSrc = isDark ? oacIconDark : oacIconLight;
+    const roblesIconSrc = isDark ? roblesIconDark : roblesIconLight;
 
     return (
         <div
@@ -115,18 +127,53 @@ export const HomeDesktop : FC<HomeDesktopProps>  = (props) =>{
                 </div>
                 <div style={{
                     padding : 50,
-                    // lineHeight : "1em",
                     justifySelf : "left",
                     display : "grid",
-                    gap : 15
+                    gap : 25
                 }}>
-                    <h2 style={{
-                        margin : 4
-                    }}>About</h2>
-                    <p style={{
-                        fontSize : "1em",
-                        margin : 4
-                    }}><i>Ramate began as Liam Monninger's single-member LLC for software engineering contracts. It is currently evolving into a collective for esoteric computing projects. We're working on standing up a new flagship project. Check back soon!</i></p>
+                    <div>
+                        <h2 style={{
+                            margin : 4
+                        }}>About</h2>
+                        <p style={{
+                            fontSize : "1em",
+                            margin : 4
+                        }}><i>Ramate is embarking on a mission to become a computing collective, with a flagship project in distributed and decentralized systems!</i></p>
+                    </div>
+                    
+                    <div>
+                        <h3 style={{
+                            margin: '4px 4px 16px 4px',
+                            fontSize: '1.1rem'
+                        }}>Our Projects</h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(2, 1fr)',
+                            gap: '30px'
+                        }}>
+                            <RepoCard
+                                title="Ramate"
+                                description="The organization with many branches. Main company repository containing artifacts and governance."
+                                repoUrl="https://github.com/ramate-io/ramate"
+                                 iconSrc={ramateIconSrc}
+                                iconAlt="Ramate Logo"
+                            />
+                            <RepoCard
+                                title="OAC"
+                                description="Ordered Atomic Collaboration - a paradigm for decentralized consequence."
+                                repoUrl="https://github.com/ramate-io/oac"
+                                 iconSrc={oacIconSrc}
+                                iconAlt="OAC Logo"
+                            />
+                            <RepoCard
+                                title="Robles"
+                                description="Ramate's stack for programming distributed and decentralized systems with OAC."
+                                repoUrl="https://github.com/ramate-io/robles"
+                                 iconSrc={roblesIconSrc}
+                                iconAlt="Robles Logo"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
