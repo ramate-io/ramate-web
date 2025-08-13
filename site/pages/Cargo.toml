@@ -1,5 +1,5 @@
 [package]
-name = "ramate-web-components"
+name = "ramate-web-pages"
 version = { workspace = true }
 edition  = { workspace = true }
 license  = { workspace = true }

@@ -1,5 +1,5 @@
 [package]
-name = "ramate-web-components"
+name = "ramate-web-app"
 version = { workspace = true }
 edition  = { workspace = true }
 license  = { workspace = true }
@@ -13,8 +13,9 @@ rust-version = { workspace = true }
 anyhow = { workspace = true }
 thiserror = { workspace = true }
 dioxus = { workspace = true }
+tokio = { workspace = true }
 
-[features]
+[feature]
 default = [] 
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
