@@ -12,7 +12,7 @@ rust-version = { workspace = true }
 [dependencies]
 anyhow = { workspace = true }
 thiserror = { workspace = true }
-dioxus = { workspace = true }
+dioxus = { workspace = true, features = ["fullstack"] }
 tokio = { workspace = true }
 
 [feature]
