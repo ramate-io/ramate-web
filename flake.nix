@@ -13,9 +13,11 @@
           inherit system;
           overlays = [ (import rust-overlay) ];
         };
+        host = pkgs.stdenv.hostPlatform.config; # e.g., aarch64-apple-darwin
 
         toolchain = p: (p.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml).override {
           extensions = [ "rustfmt" "clippy" ];
+          targets = [ host "wasm32-unknown-unknown" ];
         };
         craneLib = (crane.mkLib pkgs).overrideToolchain(toolchain);
 
@@ -23,6 +25,8 @@
 
         # An LLVM build environment
         dependencies = with pkgs; [
+          wasm-bindgen-cli
+          dioxus-cli
           protobuf
           grpcurl
           grpcui
@@ -112,7 +116,9 @@
         ];
 
         # Specific version of toolchain
-        rust = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
+        rust = (pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml).override {
+          targets = [ host "wasm32-unknown-unknown" ];
+        };
 
         rustPlatform = pkgs.makeRustPlatform {
           cargo = rust;

@@ -245,7 +245,8 @@
         "cycler",
         "contourpy",
         "kiwisolver",
-        "pyparsing"
+        "pyparsing",
+        "Dioxus"
       ]
     },
     "bibtex": { "fields": {} },
