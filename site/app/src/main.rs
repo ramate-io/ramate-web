@@ -1,9 +1,8 @@
 use ramate_web_app::config::RamateWebConfig;
 
-#[tokio::main]
-async fn main() -> Result<(), anyhow::Error> {
+pub fn main() -> Result<(), anyhow::Error> {
     let config = RamateWebConfig::default();
-    let app = config.build().await?;
-    app.run().await?;
+    let app = config.build()?;
+    app.run()?;
     Ok(())
 }

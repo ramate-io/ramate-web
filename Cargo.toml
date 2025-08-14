@@ -62,6 +62,8 @@ prost = "0.13.3"
 dioxus = { version = "0.6.3", features = ["fullstack"] }
 wasm-bindgen = "0.2"
 web-sys = "0.3"
+wasm-bindgen-futures = "0.4"
+gloo-timers = { version = "0.2" }
 
 
 # kestrel 
@@ -94,3 +96,13 @@ panic = "unwind"
 
 [profile.release.build-override]
 opt-level = 3
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"

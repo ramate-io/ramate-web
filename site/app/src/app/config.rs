@@ -14,7 +14,7 @@ pub struct RamateWebConfig {
 
 impl RamateWebConfig {
     /// Build the [RamateWebApp] with the given configuration.
-    pub async fn build(&self) -> Result<RamateWebApp, RamateWebConfigError> {
+    pub fn build(&self) -> Result<RamateWebApp, RamateWebConfigError> {
         Ok(RamateWebApp::new())
     }
 }

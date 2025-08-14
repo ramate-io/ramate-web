@@ -12,10 +12,9 @@ rust-version = { workspace = true }
 [dependencies]
 anyhow = { workspace = true }
 thiserror = { workspace = true }
-dioxus = { workspace = true, features = ["fullstack"] }
-tokio = { workspace = true }
+dioxus = { workspace = true, default-features = false }
 
-[feature]
+[features]
 default = [] 
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
@@ -24,3 +23,12 @@ server = ["dioxus/server"]
 
 [lints]
 workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"], default-features = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen-futures = { workspace = true }
+wasm-bindgen = { workspace = true }
+web-sys = { workspace = true, features = ["console"] }
+gloo-timers = { workspace = true, features = ["futures"] }
